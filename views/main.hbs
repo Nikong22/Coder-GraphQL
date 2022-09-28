@@ -1,0 +1,20 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<style>
+    body {
+    background-color: rgba(224, 248, 252, 0.753);
+}
+    h2{
+    color: rgba(56, 60, 71, 0.651);
+}
+    table{
+     margin: 4px 4px;
+}
+
+</style>
+<h2>Vista de <br> Productos</h2>
+{{#if listExists}}
+    {{> productos}}
+{{else}}
+    <label class="badge bg-warning">No se encontraron productos</label>
+{{/if}}
+<h4>Formulario:  <button onclick="location.href='/'">Volver</button> </h4>

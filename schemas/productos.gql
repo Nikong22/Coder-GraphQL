@@ -1,0 +1,22 @@
+type Producto {
+  id: ID!,
+  nombre: String,
+  cantidad: Int
+}
+
+type Query {
+  obtenerProductoPorId(id: ID): Producto
+  obtenerProductos: [Producto]
+  filtrarProductosPorCantidad(cantidad: Int): [Producto]
+}
+
+input ModificarProductoPayload {
+  id: ID!,
+  nombre: String,
+  cantidad: Int
+}
+
+type Mutation {
+  modificarProducto(args: ModificarProductoPayload): Producto
+  agregarProducto(nombre: String, cantidad: Int): Producto
+}

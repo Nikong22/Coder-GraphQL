@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Página estática</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    <script>
+      function getCookie(cname) {
+        let name = cname + "=";
+        let cookieValue = document.cookie
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      console.log("pasa")
+      window.onload = function(e){ 
+        console.log("no pasa")
+        const username = getCookie("username")
+        console.log(username)
+        if(username != ""){
+          document.getElementById("div_usuario").style.visibility='visible'
+          document.getElementById("username").innerHTML=username
+        }else{
+          document.getElementById("div_usuario").style.visibility='hidden'
+          document.getElementById("username").innerHTML=""
+        }
+      }
+    </script>
+</head>
+<body>
+  <style>
+    body {
+      background-color: rgba(224, 248, 252, 0.753);
+      margin: 10px;
+    }
+    h1,h4{
+    color: rgba(56, 60, 71, 0.651);
+    }
+</style>
+
+<h1>Bienvenidos!</h1>
+
+<div style="visibility: hidden;" id="div_usuario">
+  <h3 style="background-color: rgba(64, 243, 73, 0.527); color: rgb(47, 0, 100);">Bienvenido <span id="username"></span> 
+    <a href="/logout">Salir</a></h1>
+</div>
+
+<div>
+  <h2 style="color: rgb(8, 32, 24);">Login</h2>
+  <form action="/login" method="post">
+      <label for="username">Usuario:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"><br><br>
+      <input type="submit" value="Acceder">
+  </form>  
+  <br>
+  <a href="register.html">Registrarse</a>
+</div>    
+ 
+    <h4>Seleccione su producto:</h4>
+    <form method="post" action="/api/productos">
+      <div class="form-group">
+        <label for="formGroupExampleInput" name="title">Nombre:</label>
+        <input name="title" type="text" class="form-control" id="formGroupExampleInput" placeholder="" required>
+      </div>
+      <div class="form-group">
+          <label for="formGroupExampleInput" name="price"> Precio:</label>
+          <input  name="price" type="number" class="form-control" id="formGroupExampleInput" placeholder="" required>
+        </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2" name="thumbnail">Url:</label>
+        <input name="thumbnail" type="text" class="form-control" id="formGroupExampleInput2" placeholder="" required>
+      </div><br>
+      <input type="submit" value="Enviar producto"  class="btn btn-secondary">
+    </form>
+    <h4>Productos:  <button onclick="location.href='/api/productos'">Lista</button> </h4>
+
+  </form>
+  <br>
+  <div id="tabla"></div>
+  <br>
+  <h1>Centro de Mensajes (<span id="compresion"></span>)</h1>
+  <br>
+  <input type="email" id="email" name="email" placeholder="hola@coderhouse.com" required><br><br>
+  <input type="text" id="nombre" name="nombre" placeholder="Nombre" required><br><br>
+  <input type="text" id="apellido" name="apellido" placeholder="Apellido" required><br><br>
+  <input type="text" id="edad" name="edad" placeholder="Edad" required><br><br>
+  <input type="text" id="alias" name="alias" placeholder="Alias" required><br><br>
+  <input type="text" id="avatar" name="avatar" placeholder="URL avatar" required>
+  <hr>
+  <div id="mensajes"></div>
+    <form onsubmit="return envioMensaje(this)">
+    <input type="text" placeholder="Su mensaje..." id="mensaje">
+    <input type="submit" class="btn btn-primary" value="Enviar">
+  </form>
+</body>
+</html>
